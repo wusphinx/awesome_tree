@@ -7,16 +7,14 @@
 	在一棵二叉查找树中, 是不会有重复的结点.
 */
 
-package main
-
-import "fmt"
+package gotree
 
 // 二叉树结构
 type BinNode struct {
-	value  int
-	left   *BinNode
-	right  *BinNode
-	parent *BinNode
+	Value  int
+	Left   *BinNode
+	Right  *BinNode
+	Parent *BinNode
 }
 
 func InitSortedBinaryTree(list []int) *BinNode {
@@ -31,37 +29,31 @@ func InitSortedBinaryTree(list []int) *BinNode {
 }
 
 // 插入z到树中
-func Insert(root *BinNode, value int) {
+func Insert(root *BinNode, Value int) {
 	if root == nil {
 		return
 	}
-	if root.value == value {
+	if root.Value == Value {
 		return
 	}
-	z := &BinNode{value, nil, nil, nil}
+	z := &BinNode{Value, nil, nil, nil}
 	x := root
 	y := x
 	for x != nil {
 		y = x
-		if x.value > z.value {
-			x = x.left
-		} else if x.value < z.value {
-			x = x.right
+		if x.Value > z.Value {
+			x = x.Left
+		} else if x.Value < z.Value {
+			x = x.Right
 		} else {
 			return
 		}
 	}
-	z.parent = y
-	if y.value > z.value {
-		y.left = z
+	z.Parent = y
+	if y.Value > z.Value {
+		y.Left = z
 	} else {
-		y.right = z
+		y.Right = z
 	}
 	return
-}
-
-func main() {
-	a := []int{4, 1, 2, 3, 6, 9}
-	root := InitSortedBinaryTree(a)
-	fmt.Printf("%v %v", a, root)
 }
