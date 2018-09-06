@@ -57,3 +57,56 @@ func Insert(root *BinNode, Value int) {
 	}
 	return
 }
+
+// DFS
+func DepthFirstSearch(root *BinNode) (r []int) {
+	if root == nil {
+		return
+	}
+	r = append(r, root.Value)
+	// recursion from left to right
+	if root.Left != nil {
+		r = append(r, DepthFirstSearch(root.Left)...)
+	}
+	if root.Right != nil {
+		r = append(r, DepthFirstSearch(root.Right)...)
+	}
+	return r
+}
+
+func BreadthFirstSearch(root *BinNode) (r []int) {
+	if root == nil {
+		return
+	}
+	r = append(r, root.Value)
+	var level []*BinNode
+	if root.Left != nil {
+		level = append(level, root.Left)
+	}
+	if root.Right != nil {
+		level = append(level, root.Right)
+	}
+
+	for {
+		c := 0
+		l := len(level)
+		for i := 0; i < l; i++ {
+			r = append(r, level[i].Value)
+			if level[i].Left != nil {
+				level = append(level, level[i].Left)
+				c += 1
+			}
+			if level[i].Right != nil {
+				level = append(level, level[i].Right)
+				c += 1
+			}
+		}
+		if c > 0 {
+			level = level[l:]
+		} else {
+			break
+		}
+	}
+
+	return r
+}
